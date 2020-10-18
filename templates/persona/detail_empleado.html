@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{object.name}}
+{% endblock title %}
+
+
+{% block content %}
+
+{% include 'includes/header.html' %}
+
+        <div class="grid-contrainer">
+                
+            <div class="grid-x grid-margin-x align-center">
+                
+                <div class="cell large-4 card" style="width: 300px;">
+                    <div class="card-divider">
+                        {{empleado.get_job_display}}
+                    </div>
+                    
+                    {% if empleado.avatar %}
+                        <img src="{{empleado.avatar.url}}">
+                        
+
+                    {% else %}
+
+                        <img src="{% static 'img/30.jpg' %}">
+
+                    {% endif %}
+                         
+                    
+                    <div class="card-section">
+                        <h4>{{empleado.first_name}} {{empleado.last_name}}</h4>
+                        <p>{{empleado.departamento.shor_name}}</p>
+                        
+                        <p><span class="label">Habilidades</span></p>
+                        <ul class="vertical menu"></ul>
+                            
+                            {% for h in empleado.habilidades.all %}
+                                <li>{{h.habilidad}}</li>
+                                
+                                
+                            {% endfor %}
+                                
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <form  class="cell grid-x grid-margin-x" method="POST" enctype="multipart/form-data">{% csrf_token %}
+            
+            <div class="medium-6 cell">
+
+{% endblock content %}
+
